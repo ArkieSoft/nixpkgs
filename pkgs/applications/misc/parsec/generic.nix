@@ -73,7 +73,8 @@ in stdenvNoCC.mkDerivation rec {
     libX11
   ];
 
-  runtimeDependenciesPath = lib.makeLibraryPath [
+  runtimeDependenciesPath = lib.optionalString stdenv.isLinux
+  (lib.makeLibraryPath [
     stdenv.cc.cc
     libglvnd
     openssl
@@ -91,7 +92,8 @@ in stdenvNoCC.mkDerivation rec {
     libXrandr
     libXfixes
     vulkan-loader
-  ];
+  ]
+  );
 
   binPath = lib.makeBinPath [
     zenity
@@ -123,10 +125,10 @@ in stdenvNoCC.mkDerivation rec {
   ''
   + lib.optionalString stdenv.isDarwin
   ''
-    runhook preInstall
+    runHook preInstall
 
     mkdir -p $out/Applications
-    install -Dm755 $out/Applications
+    cp -R Parsec.app $out/Applications/
 
     runHook postInstall
   '';
@@ -149,7 +151,7 @@ in stdenvNoCC.mkDerivation rec {
     description = "Remote streaming service client";
     license = licenses.unfree;
     maintainers = with maintainers; [ arcnmx pabloaul ];
-    platforms = platforms.linux;
+    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
     mainProgram = "parsecd";
   };
 }
