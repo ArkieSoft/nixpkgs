@@ -52,7 +52,7 @@ in stdenvNoCC.mkDerivation rec {
 
     runHook postUnpack
   ''
-  ++ lib.optionalString stdenv.isDarwin
+  + lib.optionalString stdenv.isDarwin
   ''
     7z x $src
     bsdtar -xf Payload~
@@ -104,7 +104,7 @@ in stdenvNoCC.mkDerivation rec {
     fi
   '';
 
-  installPhase = lib.optionalString stdenv.Linux ''
+  installPhase = lib.optionalString stdenv.isLinux ''
     runHook preInstall
 
     mkdir $out
@@ -121,7 +121,7 @@ in stdenvNoCC.mkDerivation rec {
 
     runHook postInstall
   ''
-  ++ lib.optionalString stdenv.isDarwin
+  + lib.optionalString stdenv.isDarwin
   ''
     runhook preInstall
 

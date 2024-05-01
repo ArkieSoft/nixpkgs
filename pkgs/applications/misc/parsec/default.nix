@@ -1,3 +1,3 @@
-{ targetPlatform, callPackage }: {
-  parsec-bin = callPackage ./parsec-bin-${targetPlatform.system}.nix { };
-}
+{ targetPlatform, callPackage }:
+  callPackage ./parsec-bin-${targetPlatform.system}.nix { }
+
