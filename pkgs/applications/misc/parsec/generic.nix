@@ -92,8 +92,7 @@ in stdenvNoCC.mkDerivation rec {
     libXrandr
     libXfixes
     vulkan-loader
-  ]
-  );
+  ]);
 
   binPath = lib.makeBinPath [
     zenity
